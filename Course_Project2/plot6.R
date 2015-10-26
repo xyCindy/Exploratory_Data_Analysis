@@ -25,10 +25,11 @@ motorBalLA <- aggregate(Emissions ~ year+fips,motorSub,FUN ="sum")
 motorBalLA$fips <- gsub("24510","Baltimore, MD",motorBalLA$fips)
 motorBalLA$fips <- gsub("06037","Los Angeles, CA",motorBalLA$fips)
 
+
 # Plotting function to make plot6
 library(ggplot2)
 g <- ggplot(motorBalLA, aes(year,Emissions, fill = fips))
-g + geom_bar(stat = "identity",position="dodge") +
+g + facet_wrap(~fips) + geom_bar(stat = "identity",position="dodge") +
         labs(title = "Comparison of Total Emissions from Motor\n Vehicle Sources in Baltimore City\n and Los Angeles County from 1999 to 2008",
              x = "Year", 
              y = "Total Emissions")

@@ -18,11 +18,11 @@ png(filename = "./figure/plot3.png",
 # Which have seen increases in emissions from 1999–2008? 
 # Use the ggplot2 plotting system to make a plot answer this question.
 emissionBal <- NEI[fips == "24510", ]
-emissionsByYearType <- aggregate(Emissions ~ year + type, emissionBal, fun ="sum")
+emissionsByYearType <- aggregate(Emissions ~ year + type, emissionBal, FUN  ="sum")
 # Plotting function to make plot3
 library(ggplot2)
 g <- ggplot(emissionsByYearType, aes(year,Emissions, fill = type))
-g + geom_bar(stat = "identity") +
+g + facet_wrap(~type) + geom_bar(stat = "identity") +
         labs(title = "Total Emissions by type in Baltimore",
                  x = "Year", 
                  y = "Total Emissions")
